@@ -1,0 +1,139 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h1>
+                        Laporan Penjualan Menu
+                    </h1>
+                    <div role="group" class="btn-group btn-group-sm btn-group-justified blocks d-flex justify-content-between">
+                        <div class="form-group">
+                            Periode: 
+                            <input type="month" name="nominal" class="form-control" [(ngModel)]="periode" (ngModelChange)="getReport(kategori)" placeholder="...">
+                        </div>
+
+                        <div class="col-4">
+                            <div class="text-center d-lg-flex form-group mb-0" style="*margin-top: 2.4rem;*">
+                                <div class="input-group d-lg-flex d-xxl-flex justify-content-lg-center justify-content-xxl-center">
+                                    <div class="input-group-text" style="padding: 0px;">
+                                        <div class="btn-group" role="group">
+                                            <a href ="api/v1/export-file">
+                                            <button class="btn btn-primary text-capitalize filter2" type="button"><i class="fa wfa-file-pdf-o" style="margin-right: 0.5rem;"></i>Excel</button></a>
+                                            <a href ="api/v1/export-menu">
+                                            <button class="btn btn-primary text-capitalize filter2" type="button"><i class="fa wfa-file-pdf-o" style="margin-right: 0.5rem;"></i>PDF</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 required">Kategori</label>
+                            <div class="col-md-8">
+                                <div class="btn-group" role="group" ngbRadioGroup name="kategori" [(ngModel)]="kategori"  (ngModelChange)="getReport(kategori)">
+                                    <label ngbButtonLabel class="btn-info">
+                                        <input ngbButton type="radio" class="btn-check" value="food"> Food
+                                    </label>
+                                    <label ngbButtonLabel class="btn-info">
+                                        <input ngbButton type="radio" class="btn-check" value="drink"> Drink
+                                    </label>
+                                    <label ngbButtonLabel class="btn-info">
+                                        <input ngbButton type="radio" class="btn-check" value="snack"> Snack
+                                    </label>
+                                    <label ngbButtonLabel class="btn-info">
+                                        <input ngbButton type="radio" class="btn-check" value="all"> All
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body" style="overflow-x: scroll;">
+                    <table class="table table-bordered" style="width: 200%;" *ngIf="kategori || periode">
+                        <thead>
+                            <tr>
+                                <th class="bg-primary text-light" style="text-align: center; vertical-align: middle;" rowspan="2">Menu</th>
+                                <th class="bg-primary text-light" style="text-align: center; vertical-align: middle;" [width]="10000" [colSpan]="31">Periode Januari 2023</th>
+                                <th class="bg-primary text-light" style="text-align: center; vertical-align: middle;" rowspan="2">Total</th>
+                            </tr>
+                            <tr>
+                                <th class="bg-primary text-light" style="text-align: center; vertical-align: middle; width: 100px;"  *ngFor="let i of numbers">{{i}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="bg-primary text-light">Grand Total</th>
+                                <th class="bg-primary text-light" style="text-align: center; vertical-align: middle;" *ngFor="let i of numbers">
+                                    {{ totalDate(i) }}
+                                </th>
+                                <th class="bg-primary text-light">
+                                    {{ format(listReportTotal) }}
+                                </th>
+                            </tr>
+                            <tr class="bg-dark text-light" *ngIf="kategori == 'food' && periode || kategori == 'all' || kategori == 'food'">    
+                                <th colspan="33">Food</th>
+                            </tr>
+                            <ng-container *ngIf="kategori == 'food' && periode || kategori == 'all' || kategori == 'food'">
+                                <tr *ngFor="let food of listFood">
+                                    <td>{{food.nama}}</td>
+                                    <td style="text-align: center; vertical-align: middle;" *ngFor="let i of numbers">
+                                        {{ totalMenuDate(food.id, i) }}
+                                    </td>
+                                    <th style="text-align: center; vertical-align: middle;" class="bg-secondary text-light">
+                                        {{ totalMenu(food.id) }}
+                                    </th>
+                                </tr>
+                            </ng-container>
+                            <tr class="bg-primary text-light" *ngIf="kategori == 'food' && periode || kategori == 'all' || kategori == 'food'">
+                                <th colspan="31">Total Food</th>
+                                <th colspan="2">
+                                    {{ totalKategori('food') }}
+                                </th>
+                            </tr>
+                            <tr class="bg-dark text-light" *ngIf="kategori == 'drink'  && periode || kategori == 'all' || kategori == 'drink'">
+                                <th colspan="33">Drink</th>
+                            </tr>
+                            <ng-container *ngIf="kategori == 'drink'  && periode || kategori == 'all' || kategori == 'drink'">
+                                <tr *ngFor="let drink of listDrink">
+                                    <td>{{drink.nama}}</td>
+                                    <td style="text-align: center; vertical-align: middle;" *ngFor="let i of numbers" >
+                                        {{ totalMenuDate(drink.id, i) }}
+                                    </td>
+                                    <th style="text-align: center; vertical-align: middle;" class="bg-secondary text-light">
+                                        {{ totalMenu(drink.id) }}
+                                    </th>
+                                </tr>
+                            </ng-container>
+                            <tr class="bg-primary text-light" *ngIf="kategori == 'drink'  && periode || kategori == 'all' || kategori == 'drink'">
+                                <th colspan="31">Total Drink</th>
+                                <th colspan="2">
+                                    {{ totalKategori('drink') }}
+                                </th>
+                            </tr>
+                            <tr class="bg-dark text-light" *ngIf="kategori == 'snack' && periode || kategori == 'all' || kategori == 'snack'">
+                                <th colspan="33">Snack</th>
+                            </tr>
+                            <ng-container *ngIf="kategori == 'snack' && periode || kategori == 'all' || kategori == 'snack'">
+                                <tr *ngFor="let snack of listSnack">
+                                    <td>{{snack.nama}}</td>
+                                    <td style="text-align: center; vertical-align: middle;" *ngFor="let i of numbers" >
+                                        {{ totalMenuDate(snack.id, i) }}
+                                    </td>
+                                    <th style="text-align: center; vertical-align: middle;" class="bg-secondary text-light">
+                                        {{ totalMenu(snack.id) }}
+                                    </th>
+                                </tr>
+                            </ng-container>
+                            <tr class="bg-primary text-light" *ngIf="kategori == 'snack' && periode || kategori == 'all' || kategori == 'snack'">
+                                <th colspan="31">Total Snack</th>
+                                <th colspan="2">
+                                    {{ totalKategori('snack') }}
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+.header-card{
+    height: 250px;
+    box-shadow: 1px 1px 1px 1px #ccc;
+}
+
+.header-card:hover {
+    transform: scale(1.1);
+}
+.statistics-info .counter-icon {
+    margin-bottom: 1rem;
+    display: inline-flex;
+    width: 3rem;
+    height: 3rem;
+    padding: 1rem 0.98rem;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 16px;
+}

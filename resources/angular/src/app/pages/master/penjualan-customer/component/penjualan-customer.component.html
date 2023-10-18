@@ -1,0 +1,258 @@
+<section id="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-xl-12">
+                <div
+                    class="div-form"
+                    style="/*padding: 0px 50px 0px 50px;*/ padding-bottom: 0px"
+                >
+                    <div class="header-tabeldiv">
+                        <div class="row">
+                            <div class="col">
+                                <h2
+                                    class="text-capitalize fw-bold m-0 heading-judul"
+                                >
+                                    Rekap penjualan Customer
+                                </h2>
+                            </div>
+                            <div class="col text-end">
+                                <ul
+                                    class="d-lg-flex justify-content-lg-end breadcrumb m-0"
+                                >
+                                    <li
+                                        class="breadcrumb-item ng-star-inserted"
+                                    >
+                                        <a href="/index.html">Laporan</a>
+                                    </li>
+                                    <li
+                                        class="breadcrumb-item active ng-star-inserted"
+                                    >
+                                        Penjualan Customer
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card dashboard">
+                        <div class="card-body">
+                            <div class="row mt-0">
+                                <div class="col-2">
+                                    <div
+                                        class="p-2"
+                                        style="*padding-bottom: 10px!important;*"
+                                    >
+                                        <form
+                                            class="form-horizontal ng-untouched ng-pristine ng-invalid"
+                                        >
+                                            <div class="form-group">
+                                                Periode:
+                                                <input
+                                                    type="date"
+                                                    name="nominal"
+                                                    class="form-control"
+                                                    [(ngModel)]="periode"
+                                                    (ngModelChange)="
+                                                        getReport(customer)
+                                                    "
+                                                    placeholder="..."
+                                                />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div
+                                    class="col-2"
+                                    style="border-bottom-color: #2e2e2e"
+                                >
+                                    <div class="p-2">
+                                        <div class="form-group mb-3">
+                                            <label
+                                                class="form-label f-label"
+                                                for="email"
+                                                >Customer</label
+                                            ><ng-select
+                                                [(ngModel)]="customer"
+                                                [items]="listNama"
+                                                bindLabel="nama"
+                                                placeholder="Pilih Customer"
+                                                name="customer"
+                                                appendTo="body"
+                                                bindValue="id"
+                                                (ngModelChange)="
+                                                    getReport(customer)
+                                                "
+                                                style="width: 200px"
+                                            ></ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6 m-auto">
+                                    <div
+                                        class="form-group mb-0"
+                                        style="margin-top: 1.4rem"
+                                    >
+                                        <div
+                                            class="input-group d-lg-flex d-xl-flex justify-content-lg-end justify-content-xl-end justify-content-xxl-end"
+                                        >
+                                            <div
+                                                class="input-group-text"
+                                                style="padding: 0px"
+                                            >
+                                                <div
+                                                    class="btn-group"
+                                                    role="group"
+                                                >
+                                                    
+                                                    <a
+                                                        href="api/v1/file-export"
+                                                    >
+                                                        <!-- <a href="api/v1/coba"> -->
+                                                        <button
+                                                            class="btn btn-primary text-capitalize filter2"
+                                                            type="button"
+                                                        >
+                                                            Excell
+                                                        </button>
+                                                    </a>
+                                                    <a
+                                                        href="api/v1/export-pdf"
+                                                    >
+                                                        <!-- <a href="api/v1/coba"> -->
+                                                        <button
+                                                            class="btn btn-primary text-capitalize filter2"
+                                                            type="button"
+                                                        >
+                                                            PDF
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <hr />
+                                    <div class="table-responsive">
+                                        <table
+                                            class="table table-hover table-bordered"
+                                        >
+                                            <thead
+                                                style="
+                                                    background: #009aad;
+                                                    color: white;
+                                                "
+                                            >
+                                                <tr align="center">
+                                                    <th
+                                                        rowspan="2"
+                                                        class="align-middle"
+                                                        style="width: 5%"
+                                                    >
+                                                        No
+                                                    </th>
+                                                    <th
+                                                        rowspan="2"
+                                                        class="align-middle"
+                                                        width="100%"
+                                                    >
+                                                        Customer
+                                                    </th>
+                                                    <th
+                                                        colspan="31"
+                                                        class="text-center"
+                                                    >
+                                                        Periode: januari 2022
+                                                    </th>
+                                                    <th
+                                                        rowspan="2"
+                                                        class="align-middle"
+                                                        width="100%"
+                                                    >
+                                                        Total
+                                                    </th>
+                                                </tr>
+                                                <tr align="center">
+                                                    <th
+                                                        class="no-tr"
+                                                        *ngFor="
+                                                            let i of numbers
+                                                        "
+                                                    >
+                                                        {{ i }}
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr style="background: #eee">
+                                                    <td
+                                                        colspan="2"
+                                                        class="tabel-periode"
+                                                        style="font-weight: 700"
+                                                    >
+                                                        GRAND TOTAL
+                                                    </td>
+                                                    <td
+                                                        align="right"
+                                                        style="font-weight: 700"
+                                                        *ngFor="
+                                                            let i of numbers
+                                                        "
+                                                    >
+                                                        {{ totalDate(i) }}
+                                                    </td>
+                                                    <td>
+                                                        {{
+                                                            format(
+                                                                listReportTotal
+                                                            )
+                                                        }}
+                                                    </td>
+                                                </tr>
+
+                                                <tr
+                                                    *ngFor="
+                                                        let cust of listNama;
+                                                        index as i
+                                                    "
+                                                >
+                                                    <td align="center">
+                                                        {{ i + 1 }}
+                                                    </td>
+                                                    <td>{{ cust.nama }}</td>
+                                                    <td
+                                                        align="right"
+                                                        *ngFor="
+                                                            let i of numbers
+                                                        "
+                                                    >
+                                                        {{
+                                                            totalpercustomer(
+                                                                cust.id,
+                                                                i
+                                                            )
+                                                        }}
+                                                    </td>
+                                                    <td align="right">
+                                                        {{
+                                                            totalpercust(
+                                                                cust.id
+                                                            )
+                                                        }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center"></div>
+                                <div class="col-md-6"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

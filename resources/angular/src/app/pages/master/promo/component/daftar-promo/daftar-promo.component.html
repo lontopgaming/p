@@ -1,0 +1,75 @@
+<div class="container-fluid" *ngIf="!isOpenForm">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Promo
+                    </h1>
+                    <form action="/search" method="get" class="form-inline">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Cari Promo..." [(ngModel)]="filter.name" name="name" >
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" (click)="reloadDataTable()">
+                                    <i class="fa fa-search font-size-14 align-middle mr-1" ></i> Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                        <button type="button" class="btn btn-sm btn-primary mr-2" (click)="createPromo()">
+                            <i class="fa fa-plus font-size-14 align-middle mr-1"></i> Tambah Promo
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover" datatable [dtOptions]="dtOptions">
+                        <thead class="thead-light">
+                            <tr>
+                                <td>Foto</td>
+                                <td>Nama</td>
+                                <td>Tipe</td>
+                                <td>kadaluarsa</td>
+                                <td width="90"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of listPromo; index as i; ">
+                                <td>
+                                    <img  class="rounded-circle img-thumb" [src]="val.fotoUrl.includes('upload') ? 'storage/' + val.fotoUrl : val.fotoUrl" width="100" height="100">
+                                </td>
+                                <td class="vertical-middle">{{val.nama}}</td>
+                                <td class="vertical-middle">{{val.type}}</td>
+                                <td class="vertical-middle" style="text-align:right;">{{val.kadaluarsa}}  Hari</td>
+                                <td class="vertical-middle text-right"> 
+                                    <a href="javascript: void(0);" class="align-middle mr-2" (click)="updatePromo(val)" placement="left" container="body" ngbTooltip="Ubah">
+                                        <i class="fa fa-edit font-size-14"></i>
+                                    </a>
+                                    <a href="javascript: void(0);" class="align-middle" (click)="deletePromo(val.id)" placement="left" container="body" ngbTooltip="Hapus">
+                                        <i class="fa fa-trash font-size-14"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<div class="container-fluid" *ngIf="isOpenForm" >
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between" >
+                    <h1>
+                        {{titleCard}}
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <form-promo [promoId]="modelId" (afterSave)="showForm(false); getPromo()" reloadDataTable=()></form-promo>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

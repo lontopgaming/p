@@ -1,0 +1,68 @@
+<form>  
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group row">
+                <label class="col-md-4 required">Nama</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.id_customer" [items]="listCustomer" bindValue="id" bindLabel ="nama" name="id_customer" appendTo="body"
+                        placeholder="Nama Customer"></ng-select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Voucher</label>
+                <div class="col-md-8">
+                    <ng-select [(ngModel)]="formModel.id_promo.id" [items]="listPromo" bindValue="id" bindLabel="nama" placeholder="Voucher" name="id_promo" appendTo="body" (ngModelChange)="getVoucherById(formModel.id_promo.id)"></ng-select>
+                </div>
+            </div>      
+            <div class="form-group row">
+                <label class="col-md-4 required">Jumlah</label>
+                <div class="col-md-2">
+                    <input [(ngModel)]="formModel.jumlah" type="text" name="jumlah" class="form-control" (keyup)="setNominal($event)"
+                        placeholder="Jumlah">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Nominal</label>
+                <div class="col-md-8">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                        </div>
+                        <input [(ngModel)]="formModel.jumlah_nominal" type="text" name="nominal" class="form-control"
+                            placeholder="...">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Periode Mulai</label>
+                <div class="col-md-4">
+                    <input timezone="[[timezone]]" [(ngModel)]="formModel.tanggal_mulai" type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control" (change)="setChangePeriodeMulai($event)">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Periode Selesai</label>
+                <div class="col-md-4">
+                    <input timezone="[[timezone]]" [(ngModel)]="formModel.periode_selesai" type="date" name="periode_selesai" id="periode_selesai" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-4 required">Catatan</label>
+                <div class="col-md-6">
+                    <textarea class="form-control" [(ngModel)]="formModel.catatan" name="catatan"
+                        placeholder=".." rows="5"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group row">
+                <div class="col-md-12 text-right">
+                    <button type="button" class="btn btn-outline-secondary mr-2" (click)="back()">Daftar Voucher</button>
+                    <button type="button" class="btn btn-primary" (click)="save()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

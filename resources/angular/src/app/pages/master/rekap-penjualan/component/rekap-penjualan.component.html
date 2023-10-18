@@ -1,0 +1,131 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 col-xl-12">
+            <div class="div-form" style="/*padding: 0px 50px 0px 50px;*/padding-bottom: 0px;">
+                <div class="header-tabeldiv">
+                    <div class="row">
+                        <div class="col-9">
+                            <h2 class="text-capitalize fw-bold m-0 heading-judul">Laporan Penjualan</h2>
+                        </div>
+                        <div class="col text-end">
+                            <ul class="d-lg-flex justify-content-lg-end breadcrumb m-0">
+                                <li class="breadcrumb-item ng-star-inserted"><a href="/index.html">Laporan</a></li>
+                                <li class="breadcrumb-item active ng-star-inserted">Penjualan</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card dashboard">
+                    <div class="card-body">
+                        <div class="row mt-2">
+                            <div class="col-4">
+                                <div class="p-2" style="*padding-bottom: 10px!important;*">
+                                    <form class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                        <div class="form-group">
+                                            Periode: 
+                                            <input type="date" name="nominal" class="form-control" [(ngModel)]="tanggal" (ngModelChange)="getReport(customer)" placeholder="...">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <div class="col-4">
+                                <div class="p-2" style="*padding-bottom: 10px!important;*">
+                                    <form class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                        <div class="form-group">
+                                            Customer: 
+                                            <input type="text" name="search" class="form-control" placeholder="Cari customer" [(ngModel)]="customer "name="nama">
+                                        </div>
+                                    </form>
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary"> <i class="fa fa-search font-size-14 align-middle mr-1" (click)="getReport(customer)"></i></button>
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="p-2" style="*padding-bottom: 10px!important;*">
+                                    <form class="form-horizontal ng-untouched ng-pristine ng-invalid">
+                                        <div class="form-group">
+                                            Menu: 
+                                            <input type="text" name="search" class="form-control" placeholder="Cari Menu" [(ngModel)]="menu "name="nama">
+                                        </div>
+                                    </form>
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary"> <i class="fa fa-search font-size-14 align-middle mr-1" (click)="getReport(customer)"></i></button>
+                                </div>
+                            </div>
+
+                            
+                            <div class="col-12">
+                                <div class="text-center d-lg-flex form-group mb-0" style="*margin-top: 2.4rem;*">
+                                    <div class="input-group d-lg-flex d-xxl-flex justify-content-lg-center justify-content-xxl-center">
+                                        <div class="input-group-text" style="padding: 0px;">
+                                            <div class="btn-group" role="group">
+                                                <a href="/api/v1/export-rekap">
+                                                <button class="btn btn-primary text-capitalize filter2" type="button"><i class="fa fa-file-pdf-o" style="margin-right: 0.5rem;"></i>Excel</button></a>
+                                                <a href="/api/v1/export">
+                                                <button class="btn btn-primary text-capitalize filter2" type="button"><i class="fa fa-file-pdf-o" style="margin-right: 0.5rem;"></i>Pdf</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <hr><div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead style="background: #009aad; color: #ffff; border-width:1px; border-style:none">
+            <tr align="center">
+                <th rowspan="2" class="align-middle" style="width: 4%">No</th>
+                <th rowspan="2" class="align-middle">No Struk</th>
+                <th rowspan="2" class="align-middle">Customer</th>
+                <th rowspan="2" class="align-middle">Tanggal</th>
+                <th rowspan="2" class="align-middle">Menu</th>
+                <th rowspan="2" class="align-middle">Jumlah</th>
+                <th rowspan="2" class="align-middle">Harga</th>
+                <th rowspan="2" class="align-middle">Total</th>
+                <th colspan="2" class="align-middle">Promo</th>
+                <th rowspan="2" class="align-middle">Total Bayar</th>
+            </tr>
+            <tr align="center">
+                <th>Diskon</th>
+                <th>Voucher</th>
+            </tr>
+        </thead>
+        <tbody>
+           <ng-container *ngFor=" let val of listpenjualan; index as i">
+            <tr>
+                <td class="align-middle"[attr.rowspan]="val.order.length">{{i+1}}</td>
+                <td class="align-middle"[attr.rowspan]="val.order.length">{{val.no_struk}}</td>
+                <td class="align-middle"[attr.rowspan]="val.order.length">{{val.nama_customer}}</td>
+                <td class="align-middle"[attr.rowspan]="val.order.length">{{val.tanggal | date:' dd-MM-yyyy'}}</td>
+                <td class="align-middle">{{val.order[0].nama_item}}</td>
+                <td class="align-middle">{{val.order[0].jumlah}}</td>
+                <td class="align-middle">{{val.order[0].harga | currency:"Rp"}}</td>
+                <td class="align-middle">{{val.order[0].total | currency:"Rp"}}</td>
+                <td class="align-middle"[attr.rowspan]="val.order.length">{{val.diskon}} %</td>
+                <td class="align-middle"[attr.rowspan]="val.order.length">{{val.potongan | currency:"Rp"}}</td>
+                <td class="align-middle"[attr.rowspan]="val.order.length">{{val.total_bayar | currency:"Rp"}}</td>
+            </tr>
+                <ng-container *ngIf="val.order.length > 1">
+                    <ng-container *ngFor="let vall of val.order | slice:1;">
+                        <tr>
+                            <td class="align-middle">{{vall.nama_item}}</td>
+                            <td class="align-middle">{{vall.jumlah}}</td>
+                            <td class="align-middle">{{vall.harga | currency:"Rp"}}</td>
+                            <td class="align-middle">{{vall.total | currency:"Rp"}}</td>
+                        </tr>
+                    </ng-container>
+                </ng-container>
+                
+           </ng-container>
+            
+        </tbody>
+    </table>
+</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

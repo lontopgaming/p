@@ -1,0 +1,94 @@
+    <div class="container-fluid">
+        <div class="row header-row">
+            <div class="col-4 col-sm-12 col-md-12 col-lg-12 col-xl-4">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card header-card">
+                            <div class="card-body text-center statistics-info">
+                                <div>
+                                    <div class="counter-icon bg-primary mb-0 box-primary-shadow">
+                                        <i class="fa fa-briefcase text-white"></i></div>
+                                    <h6 class="mt-4 mb-1">Hasil Kemarin</h6>
+                                    <h2 class="mb-2 number-font">{{getTotalYesterday() | currency: 'Rp'}}</h2>
+                                </div><a class="card-link" href="#">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card header-card">
+                            <div class="card-body text-center statistics-info">
+                                <div class="counter-icon bg-primary mb-0 box-primary-shadow"><i class="fa fa-briefcase text-white"></i></div>
+                                <h6 class="mt-4 mb-1">Hasil Bulan Lalu<br></h6>
+                                <h2 class="mb-2 number-font">{{getTotalLastMonth() | currency: 'Rp'}}<br></h2><a class="card-link" href="#">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card header-card">
+                            <div class="card-body text-center statistics-info">
+                                <div class="counter-icon bg-primary mb-0 box-primary-shadow"><i class="fa fa-briefcase text-white"></i></div>
+                                <h6 class="mt-4 mb-1">Hasil Hari ini</h6>
+                                <h2 class="mb-2 number-font">{{getTotalToday() | currency: 'Rp'}}</h2><a class="card-link" href="#">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card header-card">
+                            <div class="card-body text-center statistics-info">
+                                <div class="counter-icon bg-primary mb-0 box-primary-shadow border: circular"><i class="fa fa-briefcase text-white"></i></div>
+                                <h6 class="mt-4 mb-1">Hasil Bulan Ini<br></h6>
+                                <h2 class="mb-2 number-font">{{getTotalThisMonth() | currency: 'Rp'}}<br></h2><a class="card-link" href="#">View more</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <div class="col-6 col-sm-12 col-md-12 col-lg-12 col-xl-8 col-xxl-8">
+                <div style="padding: 50px;padding-bottom: 0px;padding-top: 0px;">
+                    <div class="card dashboard" style="margin-top: 0;">
+                        <div class="card-header d-sm-flex d-md-flex d-lg-flex d-xl-flex d-xxl-flex align-items-sm-center align-items-md-center align-items-lg-center align-items-xl-center align-items-xxl-center d-flex justify-content-between align-item-center" style="border-top-left-radius: 1.5rem;border-top-right-radius: 1.5rem;">
+                            <h2 style="color: #000000;font-size: 1.2rem;margin-top: 1%;"><strong>Grafik Penjualan</strong></h2>
+                                
+                            <label>Periode Awal</label>
+                                <div class="col-md-2">
+                                    <input type="date"  class="form-control" name="Awal" [(ngModel)]="Awal">
+                                </div>
+                                <label>Periode Akhir</label>
+                                <div class="col-md-2">
+                                    <input type="date"  class="form-control" name="Akhir" [(ngModel)]="Akhir">
+                                </div>
+                                <div class="input-group-append" style="color:rgb(0, 0, 0)">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary" style="color:rgb(0, 0, 0)" (click)="getPeriode()">
+                                        <i class="fa fa-search font-size-14 align-middle mr-1" ></i> Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="card-body">
+                            
+                            <label class="col-md-4 required">Periode Mulai</label>
+                            <div class="col-md-4">
+                                <input type="date"  class="form-control" name="Awal" [(ngModel)]="Awal">
+                            </div>
+                            <label class="col-md-4 required">Periode Akhir</label>
+                            <div class="col-md-4">
+                                <input type="date"  class="form-control" name="Akhir" [(ngModel)]="Akhir">
+                            </div>
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-sm btn-outline-secondary" (click)="getPeriode()">
+                                    <i class="fa fa-search font-size-14 align-middle mr-1" ></i> Search
+                                </button>
+                            </div> -->
+                            
+                            <!-- <div style="width: 800px;"> -->
+                                <canvas id="chart"></canvas>
+                            </div>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+            <!-- </div> -->
+        <!-- </div> -->
+    <!-- </div> -->
+
+
+    

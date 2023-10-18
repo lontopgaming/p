@@ -1,0 +1,53 @@
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <h1>
+                        Daftar Diskon
+                    </h1>
+                    <form action="/search" method="get" class="form-inline">
+                            <div class="input-group">
+                                <input type="text" name="search" class="form-control" placeholder="Cari customer" [(ngModel)]="search "name="nama">
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                        <i class="fa fa-search font-size-14 align-middle mr-1" (click)="getCustomer()">Search</i> 
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-hover" >
+                        <thead class="thead-light">
+                            <tr>
+                                <th>No.</th>
+                               <th class="vertical-middle"> Customer</th>
+                               <th class="vertical-middle" *ngFor="let promo of listPromo">{{promo.nama}}</th>
+                                <td width="90"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let val of getcustomerpage(); index as i ">
+                                <td>{{ i + 1}}</td>
+                                <td class="vertical-middle">{{val.nama}}</td>
+                                <td class="vertical-middle" *ngFor="let promo of listPromo">
+                                    <span>
+                                   <i class="fa {{getstatus(val.id, promo.id)}}" (click)="checkid(val.id, promo.id)"></i>
+                                   </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <ngb-pagination [page]="Page" [pageSize]="pagesize" [collectionSize]="number.length"></ngb-pagination> -->
+                    <ngb-pagination  [(page)]="Page" [pageSize]="pagesize" [collectionSize]="listCustomer.length"  aria-label="Default pagination"></ngb-pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
